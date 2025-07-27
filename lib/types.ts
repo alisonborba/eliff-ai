@@ -12,9 +12,9 @@ export interface Case {
     | 'MEDIATION_IN_PROGRESS'
     | 'RESOLVED'
     | 'UNRESOLVED';
-  courtStatus?: 'PENDING_IN_COURT' | 'PENDING_IN_POLICE' | 'NOT_REGISTERED';
-  courtCaseNumber?: string;
-  courtName?: string;
+  legalStatus?: 'PENDING_IN_COURT' | 'PENDING_IN_POLICE' | 'NOT_REGISTERED';
+  legalExtraInfo?: string;
+  proofFiles: string[];
   createdAt: string;
   updatedAt: string;
   claimant: User;

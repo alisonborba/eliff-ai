@@ -12,7 +12,7 @@ export async function GET() {
     return NextResponse.json(
       {
         status: 'error',
-        message: 'Erro ao buscar casos',
+        message: 'Error fetching cases',
         error: error instanceof Error ? error.message : 'Unknown error',
       },
       { status: 500 }
@@ -24,7 +24,7 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    // Validação básica
+    // Basic validation
     if (
       !body.caseType ||
       !body.description ||
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
         {
           status: 'error',
           message:
-            'Campos obrigatórios: caseType, description, claimantId, oppositePartyId',
+            'Required fields: caseType, description, claimantId, oppositePartyId',
         },
         { status: 400 }
       );
@@ -53,7 +53,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         status: 'error',
-        message: 'Erro ao criar caso',
+        message: 'Error creating case',
         error: error instanceof Error ? error.message : 'Unknown error',
       },
       { status: 500 }

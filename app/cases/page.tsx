@@ -41,9 +41,9 @@ interface Case {
     | 'MEDIATION_IN_PROGRESS'
     | 'RESOLVED'
     | 'UNRESOLVED';
-  courtStatus?: 'PENDING_IN_COURT' | 'PENDING_IN_POLICE' | 'NOT_REGISTERED';
-  courtCaseNumber?: string;
-  courtName?: string;
+  legalStatus?: 'PENDING_IN_COURT' | 'PENDING_IN_POLICE' | 'NOT_REGISTERED';
+  legalExtraInfo?: string;
+  proofFiles: string[];
   createdAt: string;
   updatedAt: string;
   claimant: User;
@@ -241,15 +241,40 @@ export default function CasesPage() {
                   </Box>
                 </Flex>
 
-                {caseItem.courtCaseNumber && (
+                {caseItem.legalExtraInfo && (
                   <Box mt={4} p={3} bg="gray.50" borderRadius="md">
                     <Text fontSize="sm" fontWeight="medium" mb={1}>
-                      Court Information
+                      Legal Information
                     </Text>
                     <Text fontSize="sm" color="gray.600">
-                      Case Number: {caseItem.courtCaseNumber}
-                      {caseItem.courtName && ` • Court: ${caseItem.courtName}`}
+                      {caseItem.legalExtraInfo}
                     </Text>
+                  </Box>
+                )}
+
+                {caseItem.proofFiles && caseItem.proofFiles.length > 0 && (
+                  <Box mt={4} p={3} bg="blue.50" borderRadius="md">
+                    <Text
+                      fontSize="sm"
+                      fontWeight="medium"
+                      mb={2}
+                      color="blue.700"
+                    >
+                      Proof Files ({caseItem.proofFiles.length})
+                    </Text>
+                    <VStack align="start" gap={1}>
+                      {caseItem.proofFiles.map((file, index) => (
+                        <Link key={index} href={file} target="_blank">
+                          <Text
+                            fontSize="sm"
+                            color="blue.600"
+                            _hover={{ textDecoration: 'underline' }}
+                          >
+                            File {index + 1}
+                          </Text>
+                        </Link>
+                      ))}
+                    </VStack>
                   </Box>
                 )}
               </Box>

@@ -111,33 +111,60 @@ export default function CaseDetailPage() {
               </Text>
             </Box>
 
-            {caseData.courtCaseNumber && (
-              <Flex w="full" gap={4}>
-                <Box flex={1}>
-                  <Text fontWeight="medium" mb={2}>
-                    Court Case Number
-                  </Text>
-                  <Text color="gray.700">{caseData.courtCaseNumber}</Text>
-                </Box>
-                {caseData.courtName && (
-                  <Box flex={1}>
-                    <Text fontWeight="medium" mb={2}>
-                      Court Name
-                    </Text>
-                    <Text color="gray.700">{caseData.courtName}</Text>
-                  </Box>
-                )}
-              </Flex>
-            )}
-
-            {caseData.courtStatus && (
+            {caseData.legalStatus && (
               <Box w="full">
                 <Text fontWeight="medium" mb={2}>
-                  Court Status
+                  Legal Status
                 </Text>
-                <Badge colorScheme="orange" p={1}>
-                  {caseData.courtStatus.replace('_', ' ')}
-                </Badge>
+                <Badge
+                  label={caseData.legalStatus.replace('_', ' ')}
+                  colorScheme="orange"
+                />
+              </Box>
+            )}
+
+            {caseData.legalExtraInfo && (
+              <Box w="full">
+                <Text fontWeight="medium" mb={2}>
+                  Legal Information
+                </Text>
+                <Text color="gray.700" p={3} bg="gray.50" borderRadius="md">
+                  {caseData.legalExtraInfo}
+                </Text>
+              </Box>
+            )}
+
+            {caseData.proofFiles && caseData.proofFiles.length > 0 && (
+              <Box w="full">
+                <Text fontWeight="medium" mb={2}>
+                  Proof Files ({caseData.proofFiles.length})
+                </Text>
+                <VStack gap={2} align="start">
+                  {caseData.proofFiles.map((file, index) => (
+                    <Link key={index} href={file} target="_blank">
+                      <Box
+                        p={3}
+                        bg="blue.50"
+                        borderRadius="md"
+                        border="1px solid"
+                        borderColor="blue.200"
+                        _hover={{ bg: 'blue.100' }}
+                        transition="all 0.2s"
+                      >
+                        <Text
+                          fontSize="sm"
+                          color="blue.700"
+                          fontWeight="medium"
+                        >
+                          File {index + 1}
+                        </Text>
+                        <Text fontSize="xs" color="blue.600">
+                          Click to view
+                        </Text>
+                      </Box>
+                    </Link>
+                  ))}
+                </VStack>
               </Box>
             )}
           </VStack>

@@ -131,28 +131,23 @@ export async function deleteUser(id: string) {
 export async function createCase(data: {
   caseType: 'FAMILY' | 'BUSINESS' | 'CRIMINAL' | 'COMMUNITY' | 'OTHER';
   description: string;
-  courtStatus?: 'PENDING_IN_COURT' | 'PENDING_IN_POLICE' | 'NOT_REGISTERED';
-  courtCaseNumber?: string;
-  courtName?: string;
+  legalStatus?: 'PENDING_IN_COURT' | 'PENDING_IN_POLICE' | 'NOT_REGISTERED';
+  legalExtraInfo?: string;
   claimantId: string;
   oppositePartyId: string;
   witnesses?: {
     name: string;
     contact: string;
   }[];
-  proofFiles?: {
-    url: string;
-    type: 'IMAGE' | 'VIDEO' | 'VOICE';
-  }[];
+  proofFiles?: string[];
 }) {
   try {
     const caseData = await prisma.case.create({
       data: {
         caseType: data.caseType,
         description: data.description,
-        courtStatus: data.courtStatus,
-        courtCaseNumber: data.courtCaseNumber,
-        courtName: data.courtName,
+        legalStatus: data.legalStatus,
+        legalExtraInfo: data.legalExtraInfo,
         claimantId: data.claimantId,
         oppositePartyId: data.oppositePartyId,
         witnesses: data.witnesses
@@ -160,11 +155,7 @@ export async function createCase(data: {
               create: data.witnesses,
             }
           : undefined,
-        proofFiles: data.proofFiles
-          ? {
-              create: data.proofFiles,
-            }
-          : undefined,
+        proofFiles: data.proofFiles,
       },
       include: {
         claimant: {
@@ -178,7 +169,6 @@ export async function createCase(data: {
           },
         },
         witnesses: true,
-        proofFiles: true,
       },
     });
 
@@ -204,7 +194,6 @@ export async function findCases() {
           },
         },
         witnesses: true,
-        proofFiles: true,
       },
     });
 
@@ -231,7 +220,6 @@ export async function findCase(id: string) {
           },
         },
         witnesses: true,
-        proofFiles: true,
       },
     });
 
@@ -247,9 +235,9 @@ export async function updateCase(
   data: {
     caseType?: 'FAMILY' | 'BUSINESS' | 'CRIMINAL' | 'COMMUNITY' | 'OTHER';
     description?: string;
-    courtStatus?: 'PENDING_IN_COURT' | 'PENDING_IN_POLICE' | 'NOT_REGISTERED';
-    courtCaseNumber?: string;
-    courtName?: string;
+    legalStatus?: 'PENDING_IN_COURT' | 'PENDING_IN_POLICE' | 'NOT_REGISTERED';
+    legalExtraInfo?: string;
+    proofFiles?: string[];
     status?:
       | 'PENDING'
       | 'AWAITING_RESPONSE'
@@ -276,7 +264,6 @@ export async function updateCase(
           },
         },
         witnesses: true,
-        proofFiles: true,
       },
     });
 

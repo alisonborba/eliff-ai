@@ -42,11 +42,10 @@ const userSchema = z.object({
 const caseSchema = z.object({
   caseType: z.enum(['FAMILY', 'BUSINESS', 'CRIMINAL', 'COMMUNITY', 'OTHER']),
   description: z.string().min(10, 'Description must be at least 10 characters'),
-  courtStatus: z
+  legalStatus: z
     .enum(['PENDING_IN_COURT', 'PENDING_IN_POLICE', 'NOT_REGISTERED'])
     .optional(),
-  courtCaseNumber: z.string().optional(),
-  courtName: z.string().optional(),
+  legalExtraInfo: z.string().optional(),
   oppositeParty: userSchema,
   proofFiles: z.array(z.string()).optional(),
 });
@@ -57,6 +56,7 @@ export default function CasePage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [selectedLegalStatus, setSelectedLegalStatus] = useState<string>('');
 
   const {
     register,
@@ -90,10 +90,9 @@ export default function CasePage() {
       const caseResponse = await axios.post('/api/cases', {
         caseType: data.caseType,
         description: data.description,
-        courtStatus: data.courtStatus,
-        courtCaseNumber: data.courtCaseNumber,
-        courtName: data.courtName,
-        claimantId: '6a7dc706-3e40-45ad-9336-a3504a559631', // @TODO: get claimant id from user
+        legalStatus: data.legalStatus,
+        legalExtraInfo: data.legalExtraInfo,
+        claimantId: 'ae48ba92-733f-4a96-ac30-7e0d6edef7f0', // @TODO: get claimant id from user
         oppositePartyId: oppositePartyId,
         proofFiles: data.proofFiles,
       });
@@ -176,12 +175,13 @@ export default function CasePage() {
             </Box>
 
             <Box w="full">
-              <Text>Court Status</Text>
+              <Text>Legal Authority Status</Text>
               <NativeSelect.Root size="sm" width="full">
                 <NativeSelect.Field
-                  placeholder="Select court status"
+                  placeholder="Select legal status"
                   p={2}
-                  {...register('courtStatus')}
+                  {...register('legalStatus')}
+                  onChange={e => setSelectedLegalStatus(e.target.value)}
                 >
                   <option value="PENDING_IN_COURT">Pending in Court</option>
                   <option value="PENDING_IN_POLICE">Pending in Police</option>
@@ -189,31 +189,31 @@ export default function CasePage() {
                 </NativeSelect.Field>
                 <NativeSelect.Indicator />
               </NativeSelect.Root>
-              {errors.courtStatus && (
+              {errors.legalStatus && (
                 <Text color="red.500" fontSize="sm" mt={1}>
-                  {errors.courtStatus.message}
+                  {errors.legalStatus.message}
                 </Text>
               )}
             </Box>
 
-            <Flex w="full" gap={4}>
-              <Box flex={1}>
-                <Text>Court Case Number</Text>
+            {(selectedLegalStatus === 'PENDING_IN_COURT' ||
+              selectedLegalStatus === 'PENDING_IN_POLICE') && (
+              <Box w="full">
+                <Text>Legal Authority Information</Text>
                 <Input
-                  {...register('courtCaseNumber')}
-                  placeholder="Enter case number"
+                  {...register('legalExtraInfo')}
+                  placeholder={getLegalExtraInfoPlaceholder(
+                    selectedLegalStatus
+                  )}
                   p={2}
                 />
+                {errors.legalExtraInfo && (
+                  <Text color="red.500" fontSize="sm" mt={1}>
+                    {errors.legalExtraInfo.message}
+                  </Text>
+                )}
               </Box>
-              <Box flex={1}>
-                <Text>Court Name</Text>
-                <Input
-                  {...register('courtName')}
-                  placeholder="Enter court name"
-                  p={2}
-                />
-              </Box>
-            </Flex>
+            )}
 
             {/* Divider */}
             <Box w="full" h="1px" bg="gray.400" my={2} />
@@ -365,3 +365,14 @@ export default function CasePage() {
     </Container>
   );
 }
+
+const getLegalExtraInfoPlaceholder = (legalStatus: string) => {
+  switch (legalStatus) {
+    case 'PENDING_IN_COURT':
+      return 'Case Number or FIR Number';
+    case 'PENDING_IN_POLICE':
+      return 'Court/Police Station name';
+    default:
+      return 'Enter additional legal information';
+  }
+};

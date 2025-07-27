@@ -44,10 +44,9 @@ model Case {
   id                String   @id @default(uuid())
   caseType          CaseType
   description       String
-  courtStatus       CourtStatus?
-  courtCaseNumber   String?
-  courtName         String?
-  proofFiles        File[]
+  legalStatus       LegalStatus?
+  legalExtraInfo    String?
+  proofFiles        String[] @default([])
   status            CaseStatus @default(PENDING)
   createdAt         DateTime   @default(now())
   updatedAt         DateTime   @updatedAt
@@ -61,15 +60,6 @@ model Case {
   witnesses         Witness[]
   panelId           String?    @unique
   panel             MediationPanel? @relation(fields: [panelId], references: [id])
-}
-
-model File {
-  id        String   @id @default(uuid())
-  url       String
-  type      FileType // image, video, voice
-  uploadedAt DateTime @default(now())
-  caseId    String
-  case      Case     @relation(fields: [caseId], references: [id])
 }
 
 model Witness {
@@ -104,7 +94,7 @@ enum FileType {
   VOICE
 }
 
-enum CourtStatus {
+enum LegalStatus {
   PENDING_IN_COURT
   PENDING_IN_POLICE
   NOT_REGISTERED
