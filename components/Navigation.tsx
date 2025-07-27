@@ -17,14 +17,8 @@ import {
 } from '@chakra-ui/react';
 import {
   FiHome,
-  FiTrendingUp,
-  FiCompass,
-  FiStar,
-  FiSettings,
   FiMenu,
-  FiBell,
   FiCrosshair,
-  FiChevronDown,
   FiList,
 } from 'react-icons/fi';
 import { IconType } from 'react-icons';
@@ -52,9 +46,6 @@ const LinkItems: Array<LinkItemProps> = [
   { name: 'Home', icon: FiHome, href: '/' },
   { name: 'Create Case', icon: FiCrosshair, href: '/case' },
   { name: 'Cases', icon: FiList, href: '/cases' },
-  { name: 'Explore', icon: FiCompass },
-  { name: 'Favourites', icon: FiStar },
-  { name: 'Settings', icon: FiSettings },
 ];
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {

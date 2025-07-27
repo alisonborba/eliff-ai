@@ -2,26 +2,29 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY || '');
 
-export const sendEmail = async (to: string, subject: string, caseLink: string) => {
-    console.log('Sending email to', to, subject, caseLink);
-    try {
-        const data = await resend.emails.send({
-            from: 'noreply@pelada.bet',
-            to: to,
-            subject: subject,
-            html: html(caseLink)
-        });
+export const sendEmail = async (
+  to: string,
+  subject: string,
+  caseLink: string
+) => {
+  console.log('Sending email to', to, subject, caseLink);
+  try {
+    const data = await resend.emails.send({
+      from: 'noreply@pelada.bet',
+      to: to,
+      subject: subject,
+      html: html(caseLink),
+    });
 
-        return data;
-    } catch (error) {
-        console.error(error);
-        throw error;
-    }
-}
-
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
 
 const html = (link: string) => {
-    return `
+  return `
     <!DOCTYPE html>
         <html lang="en">
         <head>
@@ -87,6 +90,5 @@ const html = (link: string) => {
             </div>
         </body>
 </html>
-`
-  
+`;
 };

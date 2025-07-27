@@ -46,7 +46,11 @@ export async function POST(request: Request) {
     const caseData = await createCase(body);
 
     if (caseData?.id && body.oppositePartyEmail) {
-      const emailResponse = await sendEmail(body.oppositePartyEmail, 'New Case Created', `${process.env.NEXT_PUBLIC_APP_URL}/case/${caseData.id}`);
+      const emailResponse = await sendEmail(
+        body.oppositePartyEmail,
+        'New Case Created',
+        `${process.env.NEXT_PUBLIC_APP_URL}/case/${caseData.id}`
+      );
       console.log('emailResponse', emailResponse);
 
       if (emailResponse.error) {
