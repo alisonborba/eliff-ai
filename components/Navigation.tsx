@@ -167,7 +167,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
             justifyContent="center"
           >
             <Text fontSize="xs" fontWeight="bold" color="white">
-              JC
+              AB
             </Text>
           </Box>
           <VStack
@@ -177,15 +177,15 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
             ml="2"
           >
             <Text fontSize="sm" color="gray.800">
-              Justina Clark
+              Alison Borba
             </Text>
             <Text fontSize="xs" color="gray.600">
               Admin
             </Text>
           </VStack>
-          <Box display={{ base: 'none', md: 'flex' }}>
+          {/* <Box display={{ base: 'none', md: 'flex' }}>
             <Icon as={FiChevronDown} color="gray.600" />
-          </Box>
+          </Box> */}
         </HStack>
       </Flex>
     </Flex>

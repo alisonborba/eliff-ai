@@ -16,18 +16,12 @@ export default function Home() {
           <Heading size="2xl" mb={4}>
             Welcome to Eliff
           </Heading>
-          <Text fontSize="xl" color="gray.600" mb={8}>
+          <Text fontSize="xl" color="gray.600" mb={4}>
             Case and user management system
           </Text>
         </Box>
 
         <VStack gap={4} w="full" maxW="md">
-          <Link href="/users" style={{ width: '100%' }}>
-            <Button colorScheme="blue" size="lg" w="full">
-              Manage Users
-            </Button>
-          </Link>
-
           <Link href="/cases" style={{ width: '100%' }}>
             <Button colorScheme="green" size="lg" w="full">
               View Cases
