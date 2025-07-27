@@ -1,0 +1,8 @@
+.env
+.next
+node_modules
+.prettierignore
+.prettierrc
+eslint.config.mjs
+package-lock.json
+.vscode/settings.json
