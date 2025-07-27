@@ -94,6 +94,7 @@ export default function CasePage() {
         legalExtraInfo: data.legalExtraInfo,
         claimantId: 'ae48ba92-733f-4a96-ac30-7e0d6edef7f0', // @TODO: get claimant id from user
         oppositePartyId: oppositePartyId,
+        oppositePartyEmail: data.oppositeParty.email,
         proofFiles: data.proofFiles,
       });
       console.info('caseResponse', caseResponse.data.data);
@@ -101,9 +102,7 @@ export default function CasePage() {
       toaster.create({ title: 'Case created successfully!' });
       reset();
 
-      setTimeout(() => {
-        router.push(`/case/${caseResponse.data.data.id}`);
-      }, 1000);
+      router.push(`/case/${caseResponse.data.data.id}`);
     } catch (err: any) {
       console.error('Error creating case:', err);
       toaster.create({ title: 'Error creating case!' });
