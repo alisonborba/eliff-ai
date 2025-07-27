@@ -45,7 +45,7 @@ npm install
    Make sure the `.env` file contains the database credentials:
 
 ```env
-DATABASE_URL="postgres://0c1f0ac5b6edbfc4d5355e76520c046801ed531c438d7d64747501a8e2600d03:sk_rYtR302LdLFjJViHw1qxI@db.prisma.io:5432/?sslmode=require"
+DATABASE_URL="postgres://qwert:qwert@db.prisma.io:5432/?sslmode=require"
 BLOB_READ_WRITE_TOKEN="your_vercel_blob_token"
 ```
 
