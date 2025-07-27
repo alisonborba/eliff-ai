@@ -6,7 +6,7 @@ export const sendEmail = async (to: string, subject: string, caseLink: string) =
     console.log('Sending email to', to, subject, caseLink);
     try {
         const data = await resend.emails.send({
-            from: 'noreply@resend.dev',
+            from: 'noreply@pelada.bet',
             to: to,
             subject: subject,
             html: html(caseLink)
@@ -44,7 +44,6 @@ const html = (link: string) => {
             }
             h1 {
                 font-size: 20px;
-                color: #2e6da4;
             }
             p {
                 font-size: 16px;
@@ -54,7 +53,7 @@ const html = (link: string) => {
                 display: inline-block;
                 margin-top: 20px;
                 padding: 12px 24px;
-                background-color: #2e6da4;
+                background-color: #000;
                 color: white;
                 text-decoration: none;
                 border-radius: 4px;
