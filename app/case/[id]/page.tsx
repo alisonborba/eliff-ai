@@ -87,11 +87,6 @@ export default function CaseDetailPage() {
                 Created: {formatDate(caseData.createdAt)}
               </Text>
             </Box>
-            <Link href="/cases">
-              <Button colorScheme="blue" variant="outline" p={2}>
-                Back to Cases
-              </Button>
-            </Link>
           </Flex>
 
           <VStack gap={4} align="start">
